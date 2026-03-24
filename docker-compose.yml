@@ -1,0 +1,168 @@
+version: '3.8'
+
+# MediRAG 一键部署配置
+# 使用方式：docker compose up -d
+
+services:
+  # ===== MySQL 数据库 =====
+  mysql:
+    image: mysql:8.0
+    container_name: medirag-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: medirag2026
+      MYSQL_DATABASE: medirag
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql/medirag.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pmedirag2026"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - medirag-net
+
+  # ===== Redis 缓存 =====
+  redis:
+    image: redis:7-alpine
+    container_name: medirag-redis
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - medirag-net
+
+  # ===== MinIO 对象存储 =====
+  minio:
+    image: minio/minio:latest
+    container_name: medirag-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - medirag-net
+
+  # ===== Milvus 向量数据库 =====
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.5
+    container_name: medirag-etcd
+    restart: unless-stopped
+    environment:
+      ETCD_AUTO_COMPACTION_MODE: revision
+      ETCD_AUTO_COMPACTION_RETENTION: "1000"
+      ETCD_QUOTA_BACKEND_BYTES: "4294967296"
+      ETCD_SNAPSHOT_COUNT: "50000"
+    command: >
+      etcd
+      -advertise-client-urls=http://127.0.0.1:2379
+      -listen-client-urls=http://0.0.0.0:2379
+      --data-dir=/etcd
+    volumes:
+      - etcd_data:/etcd
+    networks:
+      - medirag-net
+
+  milvus:
+    image: milvusdb/milvus:v2.3.4
+    container_name: medirag-milvus
+    restart: unless-stopped
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    volumes:
+      - milvus_data:/var/lib/milvus
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    depends_on:
+      - etcd
+      - minio
+    networks:
+      - medirag-net
+
+  # ===== Python 重排序微服务 =====
+  reranker:
+    build:
+      context: ./reranker-service
+      dockerfile: Dockerfile
+    container_name: medirag-reranker
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - medirag-net
+
+  # ===== SpringBoot 后端 =====
+  backend:
+    build:
+      context: ./mediRAG
+      dockerfile: Dockerfile
+    container_name: medirag-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/medirag?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: medirag2026
+      SPRING_DATA_REDIS_HOST: redis
+      MINIO_ENDPOINT: http://minio:9000
+      MILVUS_HOST: milvus
+      RERANKER_SERVICE_URL: http://reranker:8001
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      milvus:
+        condition: service_started
+    networks:
+      - medirag-net
+
+  # ===== Nginx 前端 =====
+  frontend:
+    build:
+      context: ./medirag-frontend
+      dockerfile: Dockerfile
+    container_name: medirag-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - medirag-net
+
+volumes:
+  mysql_data:
+  redis_data:
+  minio_data:
+  etcd_data:
+  milvus_data:
+
+networks:
+  medirag-net:
+    driver: bridge

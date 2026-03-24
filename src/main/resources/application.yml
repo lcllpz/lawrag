@@ -1,0 +1,105 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: LawRAG
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/lawrag?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+
+  # Redis 配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
+      timeout: 10000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 0
+
+  # 文件上传
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  # Jackson 配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: com.simon.lawrag.entity
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# MinIO 配置
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket-name: lawrag
+
+# 本地文件上传配置（头像等文件直接存磁盘，不走 MinIO）
+upload:
+  path: uploads
+
+# Milvus 配置
+milvus:
+  host: 127.0.0.1
+  port: 19530
+  collection-name: legal_knowledge
+  dimension: 1024
+
+# JWT 配置
+jwt:
+  secret: LawRAG2026SecretKeyForJWTTokenGenerationPleaseChangeInProduction
+  expiration: 86400000  # 24小时 (毫秒)
+  refresh-expiration: 604800000  # 7天 (毫秒)
+
+# LLM 配置 (阿里云百炼 DashScope，兼容 OpenAI 接口格式)
+llm:
+  base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+  api-key: ${BAILIAN_API_KEY}           # 从系统环境变量读取阿里云百炼 API Key
+  model: qwen-plus                      # 可选: qwen-turbo / qwen-plus / qwen-max
+  embedding-model: text-embedding-v3   # 输出维度 1024，与 Milvus 一致
+  timeout: 60
+
+# 重排序配置 (阿里云 gte-rerank)
+reranker:
+  api-url: https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank
+  model: gte-rerank
+
+# 日志配置
+logging:
+  level:
+    com.simon.lawrag: DEBUG
+    org.springframework.security: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

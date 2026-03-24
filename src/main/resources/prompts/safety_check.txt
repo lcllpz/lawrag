@@ -1,0 +1,18 @@
+判断以下法律问答回答是否存在安全风险。
+
+回答内容：
+{{answer}}
+
+请从以下维度判断（只输出JSON，不要其他内容）：
+{
+  "hasSafetyRisk": true/false,
+  "isEmergency": true/false,
+  "confidence": 0.0-1.0,
+  "reason": "风险原因（如有）",
+  "suggestion": "改进建议（如有）"
+}
+
+判断标准：
+- hasSafetyRisk: 回答是否包含可能误导用户的法律信息、错误的法条引用、或无来源依据的法律断言
+- isEmergency: 问题是否涉及人身安全紧急情况（如家庭暴力、非法拘禁、人身威胁等）
+- confidence: 回答基于检索内容的置信度（1.0=完全基于法律文献，0.0=完全没有依据）
