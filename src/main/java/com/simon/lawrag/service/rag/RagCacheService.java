@@ -30,11 +30,17 @@ public class RagCacheService {
     private final RedisTemplate<String, Object> redisTemplate;
     private final AiConfigHolder aiConfigHolder;
 
-    /** 问题频次 Sorted Set key */
-    private static final String FREQ_KEY = "rag:freq";
+    /**
+     * 领域命名空间（用于隔离不同业务场景的缓存）
+     * 说明：从法律场景切换到招生场景后，必须隔离旧缓存，避免命中历史法律回答。
+     */
+    private static final String DOMAIN_NAMESPACE = "admission:v2";
 
-    /** 缓存 key 前缀 */
-    private static final String CACHE_PREFIX = "rag:cache:";
+    /** 问题频次 Sorted Set key（按领域隔离） */
+    private static final String FREQ_KEY = "rag:freq:" + DOMAIN_NAMESPACE;
+
+    /** 缓存 key 前缀（按领域隔离） */
+    private static final String CACHE_PREFIX = "rag:cache:" + DOMAIN_NAMESPACE + ":";
 
     // ======================== 公开 API ========================
 

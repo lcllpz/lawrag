@@ -15,7 +15,7 @@
             <line x1="14" y1="36" x2="26" y2="36" stroke="#b8943f" stroke-width="2"/>
           </svg>
         </div>
-        <span class="logo-text" v-show="!isCollapsed"><em>LawRAG</em></span>
+        <span class="logo-text" v-show="!isCollapsed"><em>AdmissionRAG</em></span>
       </div>
 
       <!-- Nav -->
@@ -89,7 +89,7 @@
             {{ currentMeta.label }}
           </div>
           <div class="header-breadcrumb">
-            <span>LawRAG</span>
+            <span>AdmissionRAG</span>
             <svg viewBox="0 0 20 20" fill="currentColor" width="12" height="12"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
             <span class="header-breadcrumb-current">{{ currentMeta.label }}</span>
           </div>
@@ -208,7 +208,7 @@ const isActive = (path: string) => route.path.startsWith(path)
 
 const currentMeta = computed(() => {
   const key = Object.keys(routeMeta).find(k => route.path.startsWith(k))
-  return key ? routeMeta[key] : { label: 'LawRAG', showS: false }
+  return key ? routeMeta[key] : { label: 'AdmissionRAG', showS: false }
 })
 
 const handleCommand = async (command: string) => {

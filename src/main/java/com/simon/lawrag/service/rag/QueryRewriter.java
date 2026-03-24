@@ -12,8 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * RAG 链路第1步：Query 改写
- * 将用户口语化问题改写为专业医学检索词
- * 示例："肚子疼吃什么药" → "腹痛的常见病因及对症用药方案"
+ * 将用户口语化问题改写为专业检索词（招生场景）
  */
 @Slf4j
 @Component

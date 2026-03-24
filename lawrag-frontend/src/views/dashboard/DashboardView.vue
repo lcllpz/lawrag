@@ -4,7 +4,7 @@
     <div class="dashboard-header">
       <div class="header-left">
         <h2 class="dashboard-title">
-          <span class="gradient-text">LawRAG</span> 数据大屏
+          <span class="gradient-text">AdmissionRAG</span> 数据大屏
         </h2>
         <el-tag type="success" effect="plain" size="small">实时数据</el-tag>
       </div>

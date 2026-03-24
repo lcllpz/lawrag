@@ -12,11 +12,11 @@
             <path d="M34 8 L30 20 Q34 24 38 20 L34 8Z" fill="none" stroke="#b8943f" stroke-width="1.5" stroke-linejoin="round"/>
             <line x1="14" y1="36" x2="26" y2="36" stroke="#b8943f" stroke-width="1.8"/>
           </svg>
-          <span class="nav-logo-text"><em>LawRAG</em></span>
+          <span class="nav-logo-text"><em>AdmissionRAG</em></span>
         </a>
         <div class="nav-links">
           <a href="#features">核心技术</a>
-          <a href="#domains">法律领域</a>
+          <a href="#domains">招生模块</a>
           <a href="#process">使用流程</a>
         </div>
         <div class="nav-actions">
@@ -35,19 +35,19 @@
       <div class="hero-inner">
         <div class="hero-eyebrow">
           <span class="eyebrow-dot"></span>
-          <span>RAG · 检索增强生成 · 智能法律咨询</span>
+          <span>RAG · 检索增强生成 · 智能招生问答</span>
         </div>
         <h1 class="hero-title">
-          让法律智识<br/><em class="hero-title-accent">触手可及</em>
+          让招生信息<br/><em class="hero-title-accent">触手可及</em>
         </h1>
         <p class="hero-sub">
           基于向量检索 + BM25 双路召回、Cross-Encoder 精排，<br class="hero-br"/>
-          从权威法律文献中为您生成有据可查的咨询回答
+          从招生章程与录取资料中为您生成有据可查的咨询回答
         </p>
 
         <div class="hero-cta-row">
           <router-link to="/login" class="btn-hero-primary">
-            <span>开始免费咨询</span>
+            <span>开始免费问答</span>
             <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
           </router-link>
           <a href="#features" class="btn-hero-ghost">了解技术原理</a>
@@ -61,7 +61,7 @@
               <span v-else>0</span>
               <span class="stat-unit">+</span>
             </div>
-            <div class="stat-label">法律领域覆盖</div>
+            <div class="stat-label">招生模块覆盖</div>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
@@ -148,9 +148,9 @@
     <section class="domains" id="domains">
       <div class="section-inner">
         <div class="section-header light">
-          <div class="section-label gold">LEGAL DOMAINS</div>
-          <h2 class="section-title light">十一大法律领域全覆盖</h2>
-          <p class="section-sub light">从婚姻家庭到商事仲裁，专业知识库持续扩充，为您的法律问题提供全方位支持</p>
+          <div class="section-label gold">ADMISSION SCENARIOS</div>
+          <h2 class="section-title light">招生场景一站式覆盖</h2>
+          <p class="section-sub light">从招生政策到历年分数线，专业知识库持续扩充，为考生和家长提供全方位支持</p>
         </div>
 
         <div class="domains-grid" ref="domainsRef">
@@ -174,7 +174,7 @@
       <div class="section-inner">
         <div class="section-header">
           <div class="section-label">HOW IT WORKS</div>
-          <h2 class="section-title">三步获取专业法律解答</h2>
+          <h2 class="section-title">三步获取专业招生解答</h2>
         </div>
 
         <div class="process-steps">
@@ -201,13 +201,13 @@
       <div class="cta-bg-pattern"></div>
       <div class="cta-inner">
         <div class="cta-deco">§</div>
-        <h2 class="cta-title">准备好获取您的法律解答了吗？</h2>
-        <p class="cta-sub">注册免费账户，即刻体验 AI 驱动的专业法律知识检索</p>
+        <h2 class="cta-title">准备好获取您的招生解答了吗？</h2>
+        <p class="cta-sub">注册免费账户，即刻体验 AI 驱动的专业招生知识检索</p>
         <router-link to="/login" class="btn-cta-main">
           立即免费体验
           <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
         </router-link>
-        <p class="cta-disclaimer">不构成正式法律意见 · 仅供知识参考</p>
+        <p class="cta-disclaimer">不构成正式录取承诺 · 仅供信息参考</p>
       </div>
     </section>
 
@@ -222,9 +222,9 @@
             <path d="M34 8 L30 20 Q34 24 38 20 L34 8Z" fill="none" stroke="#b8943f" stroke-width="1.5" stroke-linejoin="round"/>
             <line x1="14" y1="36" x2="26" y2="36" stroke="#b8943f" stroke-width="1.8"/>
           </svg>
-          <em>LawRAG</em>
+          <em>AdmissionRAG</em>
         </div>
-        <div class="footer-copy">© 2025 LawRAG · 智能法律咨询平台 · 本平台仅供法律知识参考，不构成法律意见</div>
+        <div class="footer-copy">© 2025 AdmissionRAG · 智能招生问答平台 · 本平台仅供招生信息参考，最终以官方公告为准</div>
       </div>
     </footer>
 
@@ -267,7 +267,7 @@ onUnmounted(() => observers.forEach(o => o.disconnect()))
 const pipelineSteps = [
   {
     title: 'Query 改写',
-    desc: 'LLM 将模糊口语化提问改写为精准法律检索词',
+    desc: 'LLM 将模糊口语化提问改写为精准招生检索词',
     bg: 'rgba(184,148,63,0.12)',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>`
   },
@@ -299,13 +299,13 @@ const pipelineSteps = [
 
 const featureCards = [
   {
-    title: '权威法律知识库',
-    desc: '涵盖法律法规、司法解释、典型案例，知识库持续扩充，确保答案权威可信',
+    title: '权威招生知识库',
+    desc: '涵盖招生章程、招生计划、历年录取数据，知识库持续扩充，确保答案权威可信',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>`
   },
   {
     title: '来源可追溯',
-    desc: '每条回答均附带文献出处，精确到章节页码，法律依据一目了然',
+    desc: '每条回答均附带资料出处，精确到章节页码，政策依据一目了然',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`
   },
   {
@@ -331,33 +331,30 @@ const featureCards = [
 ]
 
 const legalDomains = [
-  { name: '民商事法律', examples: '合同纠纷 · 债权债务', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>` },
-  { name: '劳动用工法律', examples: '劳动合同 · 工伤赔偿', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36 0-2.57-2.1-4.64-4.67-4.64-1.4 0-2.65.58-3.55 1.51L8 3.24 6.22 1.51C5.32.58 4.06 0 2.67 0 .1 0-2 2.07-2 4.64c0 .48.11.92.18 1.36H-2c-1.1 0-1.99.9-1.99 2v14c0 1.1.89 2 1.99 2h20c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>` },
-  { name: '婚姻家庭法律', examples: '离婚诉讼 · 财产分割', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>` },
-  { name: '刑事法律', examples: '刑事辩护 · 量刑标准', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>` },
-  { name: '行政法律', examples: '行政复议 · 行政诉讼', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>` },
-  { name: '房产与不动产', examples: '房屋买卖 · 租赁纠纷', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>` },
-  { name: '公司与商事法', examples: '股权纠纷 · 公司治理', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>` },
-  { name: '知识产权法', examples: '版权保护 · 商标侵权', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg>` },
-  { name: '诉讼程序法', examples: '起诉流程 · 证据规则', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>` },
-  { name: '消费者权益', examples: '产品缺陷 · 退款维权', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>` },
-  { name: '综合法律咨询', examples: '多领域交叉 · 政策解读', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>` }
+  { name: '招生章程解读', examples: '报考条件 · 录取规则', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 14H7v-2h10v2zm0-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>` },
+  { name: '招生计划查询', examples: '专业计划数 · 省份计划', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>` },
+  { name: '历年分数线分析', examples: '投档线 · 位次对比', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M3 17h2v-7H3v7zm4 0h2V7H7v10zm4 0h2v-4h-2v4zm4 0h2V4h-2v13zm4 0h2V9h-2v8z"/></svg>` },
+  { name: '专业与选科要求', examples: '专业组 · 选科限制', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>` },
+  { name: '志愿填报策略', examples: '冲稳保 · 志愿梯度', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M14 2H6c-1.1 0-2 .9-2 2v16l5-3 5 3V4c0-1.1-.9-2-2-2zm4 4v13h2V6h-2z"/></svg>` },
+  { name: '调剂与录取流程', examples: '服从调剂 · 录取批次', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17 1l4 4-4 4V6H7V4h10V1zM7 23l-4-4 4-4v3h10v2H7v3z"/></svg>` },
+  { name: '学费与奖助政策', examples: '学费标准 · 奖学金', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>` },
+  { name: '综合招生咨询', examples: '多条件组合 · 政策解读', icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>` }
 ]
 
 const processSteps = [
   {
-    title: '描述您的法律问题',
-    desc: '用自然语言描述您遇到的法律情况，支持文字或语音输入，无需专业术语',
+    title: '描述您的招生问题',
+    desc: '用自然语言描述您的报考情况，支持文字或语音输入，无需专业术语',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>`
   },
   {
     title: 'AI 智能检索分析',
-    desc: '系统自动改写查询、双路检索法律知识库、精排融合，秒级完成深度法律检索',
+    desc: '系统自动改写查询、双路检索招生知识库、精排融合，秒级完成深度检索',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>`
   },
   {
     title: '获取有据可查的解答',
-    desc: '接收附带法律条文出处的专业回答，可查看完整的 RAG 检索过程日志',
+    desc: '接收附带招生资料出处的专业回答，可查看完整的 RAG 检索过程日志',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>`
   }
 ]

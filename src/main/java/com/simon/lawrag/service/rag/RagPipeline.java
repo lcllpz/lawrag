@@ -46,6 +46,7 @@ public class RagPipeline {
 
     /** 缓存命中时每批发送的字符数（模拟流式输出） */
     private static final int CACHE_CHUNK_SIZE = 30;
+    private static final List<String> HISTORY_REF_KEYWORDS = List.of("上一个", "刚才", "之前", "上一条", "前面", "上文");
 
     /**
      * 完整 RAG 流水线（SSE 流式输出）
@@ -53,7 +54,7 @@ public class RagPipeline {
      * @param userId         当前用户ID
      * @param conversationId 会话ID（null则自动创建）
      * @param question       用户问题
-     * @param legalProfile   用户法律档案
+     * @param legalProfile   用户档案（沿用历史字段名）
      * @param emitter        SSE 发送器
      * @return 会话ID
      */
@@ -129,12 +130,42 @@ public class RagPipeline {
             boolean needsFallback = safetyGuard.needsFallback(topChunks);
             retrievalLog.put("isFallback", needsFallback);
 
-            // ===== Step 7: 组装 Prompt =====
+            // ===== Step 7: 无检索支撑时，直接返回友好提示（除“引用历史”类问题） =====
+            if (needsFallback && !isHistoryReferenceQuestion(question)) {
+                String answer = safetyGuard.getNoDataFriendlyNotice();
+                int elapsed = (int) (System.currentTimeMillis() - startTime);
+                MedMessage savedMsg = saveMessage(conversation.getId(), "assistant", answer,
+                        JSON.toJSONString(Collections.emptyList()), JSON.toJSONString(retrievalLog));
+
+                // 高频问题仍可缓存，减少重复空答计算
+                RagCachedResult cacheResult = new RagCachedResult(
+                        answer, Collections.emptyList(), true, isEmergency,
+                        rewrittenQuery, retrievalLog);
+                ragCacheService.putCacheIfFrequent(normalized, cacheResult, frequency);
+
+                Map<String, Object> donePayload = new LinkedHashMap<>();
+                donePayload.put("sources", Collections.emptyList());
+                donePayload.put("isFallback", true);
+                donePayload.put("isEmergency", isEmergency);
+                donePayload.put("responseTime", elapsed);
+                donePayload.put("conversationId", conversation.getId());
+                donePayload.put("messageId", savedMsg.getId());
+                donePayload.put("retrievalLog", retrievalLog);
+
+                sendSseEvent(emitter, "start", Map.of("message", "知识库数据不足，返回友好提示"));
+                sendSseEvent(emitter, "token", Map.of("content", answer));
+                sendSseEvent(emitter, "done", donePayload);
+                emitter.complete();
+                updateConversation(conversation);
+                return conversation.getId();
+            }
+
+            // ===== Step 8: 组装 Prompt =====
             String prompt = needsFallback
                     ? promptAssembler.assembleFallback(question, history)
                     : promptAssembler.assemble(question, topChunks, legalProfile, history);
 
-            // ===== Step 8: LLM 流式生成 =====
+            // ===== Step 9: LLM 流式生成 =====
             final StringBuilder answerBuilder = new StringBuilder();
             final List<Map<String, Object>> sources = buildSources(topChunks);
             sendSseEvent(emitter, "start", Map.of("message", "开始生成..."));
@@ -331,7 +362,7 @@ public class RagPipeline {
 
         chunks.forEach(chunk -> {
             if (chunk.getKnowledgeBaseId() != null) {
-                chunk.setSourceName(nameMap.getOrDefault(chunk.getKnowledgeBaseId(), "法律文献"));
+                chunk.setSourceName(nameMap.getOrDefault(chunk.getKnowledgeBaseId(), "招生资料"));
             }
         });
     }
@@ -342,7 +373,7 @@ public class RagPipeline {
             RetrievedChunk chunk = chunks.get(i);
             Map<String, Object> source = new LinkedHashMap<>();
             source.put("index", i + 1);
-            source.put("name", chunk.getSourceName() != null ? chunk.getSourceName() : "法律文献");
+            source.put("name", chunk.getSourceName() != null ? chunk.getSourceName() : "招生资料");
             source.put("chapter", chunk.getChapter());
             source.put("pageNumber", chunk.getPageNumber());
             source.put("content", chunk.getContent().substring(0, Math.min(100, chunk.getContent().length())) + "...");
@@ -360,5 +391,10 @@ public class RagPipeline {
         } catch (Exception e) {
             log.warn("SSE发送失败: {}", e.getMessage());
         }
+    }
+
+    private boolean isHistoryReferenceQuestion(String question) {
+        if (question == null) return false;
+        return HISTORY_REF_KEYWORDS.stream().anyMatch(question::contains);
     }
 }

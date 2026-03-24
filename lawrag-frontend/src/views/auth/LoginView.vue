@@ -24,16 +24,16 @@
               <path d="M18 49 L34 49"       stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
               <path d="M15 53 L37 53"       stroke="currentColor" stroke-width="2"   stroke-linecap="round"/>
             </svg>
-            <span class="brand-name">LawRAG</span>
+            <span class="brand-name">AdmissionRAG</span>
           </div>
 
-          <div class="eyebrow-en">INTELLIGENT LEGAL CONSULTATION</div>
+          <div class="eyebrow-en">INTELLIGENT ADMISSION ASSISTANT</div>
 
-          <h1 class="zh-headline">智能法律<br>咨询平台</h1>
+          <h1 class="zh-headline">智能招生<br>问答平台</h1>
 
           <p class="intro-text">
             融合多路向量检索、BM25全文检索与大语言模型，
-            基于权威法律文献提供有据可查的专业法律知识解答。
+            基于招生章程与录取资料提供有据可查的专业招生信息解答。
           </p>
 
           <div class="gold-rule"></div>
@@ -44,14 +44,14 @@
             </li>
           </ul>
 
-          <p class="panel-foot">© 2026 LawRAG &nbsp;·&nbsp; 智能法律咨询平台</p>
+          <p class="panel-foot">© 2026 AdmissionRAG &nbsp;·&nbsp; 智能招生问答平台</p>
         </div>
       </div>
 
       <!-- ═══ RIGHT PANEL ═══ -->
       <div class="panel-r">
         <div class="form-wrap">
-          <p class="form-eyebrow">LAWRAG PLATFORM</p>
+          <p class="form-eyebrow">ADMISSIONRAG PLATFORM</p>
           <h2 class="form-title">欢迎登录</h2>
           <div class="title-rule"></div>
 
@@ -163,7 +163,7 @@ const rules: FormRules = {
 const features = [
   '多路召回 + RRF 融合检索算法',
   'Cross-Encoder 精准重排序',
-  '法律安全兜底与风险识别机制',
+  '招生信息安全兜底与风险识别机制',
   '来源可溯，每条引用有据可查'
 ]
 
@@ -183,7 +183,7 @@ const handleLogin = async () => {
   loading.value = true
   try {
     await userStore.login({ username: form.username, password: form.password })
-    ElMessage.success('登录成功，欢迎使用 LawRAG！')
+    ElMessage.success('登录成功，欢迎使用 AdmissionRAG！')
     const redirect = (route.query.redirect as string) || '/'
     router.push(redirect)
   } catch {

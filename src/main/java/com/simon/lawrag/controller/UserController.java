@@ -94,7 +94,7 @@ public class UserController {
     }
 
     /**
-     * 更新法律档案
+     * 更新用户档案（沿用历史字段名）
      */
     @PutMapping("/legal-profile")
     public Result<Void> updateLegalProfile(@RequestBody String legalProfile) {

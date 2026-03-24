@@ -1,5 +1,5 @@
 /* =============================================
-   LawRAG 全局样式 · Legal Prestige Theme
+   AdmissionRAG 全局样式 · Admission Prestige Theme
    ============================================= */
 
 * {
@@ -42,7 +42,7 @@ html, body, #app {
   background: #b8943f;
 }
 
-/* ===== LawRAG 品牌色变量 ===== */
+/* ===== AdmissionRAG 品牌色变量 ===== */
 :root {
   /* Brand */
   --gold:          #b8943f;

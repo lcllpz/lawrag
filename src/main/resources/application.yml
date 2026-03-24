@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: LawRAG
+    name: AdmissionRAG
   # 数据库配置
   datasource:
     url: jdbc:mysql://localhost:3306/lawrag?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
@@ -74,7 +74,7 @@ upload:
 milvus:
   host: 127.0.0.1
   port: 19530
-  collection-name: legal_knowledge
+  collection-name: admission_knowledge
   dimension: 1024
 
 # JWT 配置

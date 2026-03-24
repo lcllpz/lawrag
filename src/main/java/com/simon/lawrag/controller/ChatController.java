@@ -189,7 +189,7 @@ public class ChatController {
 
         // ===== 文件头 =====
         md.append("# ").append(conv.getTitle()).append("\n\n");
-        md.append("> **平台**: LawRAG 智能法律咨询  \n");
+        md.append("> **平台**: AdmissionRAG 智能招生问答  \n");
         md.append("> **创建时间**: ").append(createTime).append("  \n");
         md.append("> **导出时间**: ").append(exportTime).append("  \n");
         md.append("> **消息数量**: ").append(messages.size()).append("  \n\n");
@@ -204,7 +204,7 @@ public class ChatController {
                 md.append("\n\n");
                 md.append(msg.getContent()).append("\n\n");
             } else {
-                md.append("### 🤖 LawRAG");
+                md.append("### 🤖 AdmissionRAG");
                 if (!time.isEmpty()) md.append(" · `").append(time).append("`");
                 if (msg.getResponseTime() != null) {
                     md.append(" · ⏱ ").append(msg.getResponseTime()).append("ms");
@@ -226,7 +226,7 @@ public class ChatController {
         }
 
         // ===== 文件尾 =====
-        md.append("*本文档由 LawRAG 自动生成，仅供参考，不构成正式法律意见。*\n");
+        md.append("*本文档由 AdmissionRAG 自动生成，仅供参考，不构成正式录取承诺。*\n");
         return md.toString();
     }
 
@@ -241,7 +241,7 @@ public class ChatController {
                 String name = s.getString("name");
                 String chapter = s.getString("chapter");
                 Integer page = s.getInteger("pageNumber");
-                md.append(i + 1).append(". 《").append(name != null ? name : "法律文献").append("》");
+                md.append(i + 1).append(". 《").append(name != null ? name : "招生资料").append("》");
                 if (chapter != null && !chapter.isBlank()) md.append(" · ").append(chapter);
                 if (page != null && page > 0) md.append(" · 第 ").append(page).append(" 页");
                 md.append("\n");

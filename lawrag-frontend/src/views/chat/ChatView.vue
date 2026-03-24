@@ -67,9 +67,9 @@
           </div>
         </div>
         <div class="welcome-rule"></div>
-        <h2 class="welcome-title">LawRAG 智能法律咨询</h2>
+        <h2 class="welcome-title">AdmissionRAG 智能招生问答</h2>
         <p class="welcome-desc">
-          基于权威法律文献，双路检索 · 精排融合 · 来源可溯源
+          基于招生章程与历年录取资料，双路检索 · 精排融合 · 来源可溯源
         </p>
         <div class="quick-questions">
           <div
@@ -225,7 +225,7 @@
             v-model="inputText"
             type="textarea"
             :autosize="{ minRows: 1, maxRows: 6 }"
-            :placeholder="isRecording ? '正在聆听，请说话...' : isStreaming ? '正在生成中，请稍候...' : '输入您的法律问题，按 Enter 发送 (Shift+Enter 换行)'"
+            :placeholder="isRecording ? '正在聆听，请说话...' : isStreaming ? '正在生成中，请稍候...' : '输入您的招生问题，按 Enter 发送 (Shift+Enter 换行)'"
             :disabled="isStreaming"
             @keydown.enter.exact.prevent="handleEnterSend"
             class="chat-input"
@@ -267,7 +267,7 @@
           </div>
         </div>
         <div class="input-hint">
-          LawRAG 仅提供法律知识参考，不构成正式法律意见。如遇人身安全紧急情况请拨打 110。
+          AdmissionRAG 仅提供招生信息参考，最终请以学校招生网与省级考试院最新公告为准。
         </div>
       </div>
     </div>

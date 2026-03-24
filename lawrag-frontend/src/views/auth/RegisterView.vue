@@ -15,12 +15,12 @@
           <path d="M48 12 L43 28 Q48 34 53 28 L48 12Z" fill="none" stroke="#b8943f" stroke-width="1.8" stroke-linejoin="round"/>
           <line x1="19" y1="50" x2="37" y2="50" stroke="#b8943f" stroke-width="2"/>
         </svg>
-        <div class="rp-brand-name"><em>LawRAG</em></div>
+        <div class="rp-brand-name"><em>AdmissionRAG</em></div>
       </div>
       <div class="rp-gold-rule"></div>
-      <h2 class="rp-headline">加入平台<br/>开启法律<br/>智慧之旅</h2>
+      <h2 class="rp-headline">加入平台<br/>开启招生<br/>咨询之旅</h2>
       <ul class="rp-bullets">
-        <li><span class="rp-bullet-dash">—</span> 权威法律文献知识库</li>
+        <li><span class="rp-bullet-dash">—</span> 权威招生资料知识库</li>
         <li><span class="rp-bullet-dash">—</span> 双路检索 · 精排融合</li>
         <li><span class="rp-bullet-dash">—</span> 每条回答附带出处</li>
         <li><span class="rp-bullet-dash">—</span> 对话记录云端留存</li>
@@ -33,7 +33,7 @@
         <div class="rp-form-header">
           <div class="rp-form-label">CREATE ACCOUNT</div>
           <h3 class="rp-form-title">创建新账号</h3>
-          <p class="rp-form-sub">加入 LawRAG · 智能法律咨询平台</p>
+          <p class="rp-form-sub">加入 AdmissionRAG · 智能招生问答平台</p>
         </div>
 
         <el-form

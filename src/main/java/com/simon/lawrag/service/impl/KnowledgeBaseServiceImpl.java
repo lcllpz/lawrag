@@ -51,8 +51,8 @@ public class KnowledgeBaseServiceImpl implements KnowledgeBaseService {
         // 1. 校验文件类型
         String originalName = file.getOriginalFilename();
         String fileType = getFileExtension(originalName);
-        if (!List.of("pdf", "docx", "doc", "txt").contains(fileType.toLowerCase())) {
-            throw new BusinessException("不支持的文件格式，请上传 PDF/Word/TXT 文件");
+        if (!List.of("pdf", "docx", "doc", "txt", "xlsx").contains(fileType.toLowerCase())) {
+            throw new BusinessException("不支持的文件格式，请上传 PDF/Word/TXT/Excel(.xlsx) 文件");
         }
 
         // 2. 保存文件到本地磁盘
@@ -131,8 +131,8 @@ public class KnowledgeBaseServiceImpl implements KnowledgeBaseService {
     @Override
     public void reprocess(Long id) {
         MedKnowledgeBase kb = getById(id);
-        if (!"failed".equals(kb.getStatus())) {
-            throw new BusinessException("只有处理失败的文档才能重新处理");
+        if (!"failed".equals(kb.getStatus()) && !"ready".equals(kb.getStatus())) {
+            throw new BusinessException("仅支持对处理失败或已就绪文档执行重新处理");
         }
         // 先删除旧向量
         milvusService.deleteByKnowledgeBaseId(id);

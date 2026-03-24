@@ -89,12 +89,12 @@
             </el-card>
           </el-tab-pane>
 
-          <!-- 法律档案 -->
-          <el-tab-pane label="法律档案" name="legal">
+          <!-- 招生档案 -->
+          <el-tab-pane label="招生档案" name="legal">
             <el-card>
               <div class="health-tip">
                 <el-icon color="#3b82f6"><InfoFilled /></el-icon>
-                <span>法律档案信息将在问答时自动注入，帮助获得更个性化的法律建议</span>
+                <span>招生档案信息将在问答时自动注入，帮助获得更个性化的招生建议</span>
               </div>
 
               <el-form
@@ -105,17 +105,13 @@
               >
                 <el-row :gutter="16">
                   <el-col :span="12">
-                    <el-form-item label="法律领域">
+                    <el-form-item label="咨询方向">
                       <el-select v-model="legalForm.legalType" style="width:100%" placeholder="请选择">
-                        <el-option label="合同纠纷" value="合同纠纷" />
-                        <el-option label="劳动纠纷" value="劳动纠纷" />
-                        <el-option label="婚姻家庭" value="婚姻家庭" />
-                        <el-option label="房产纠纷" value="房产纠纷" />
-                        <el-option label="刑事辩护" value="刑事辩护" />
-                        <el-option label="侵权赔偿" value="侵权赔偿" />
-                        <el-option label="行政复议" value="行政复议" />
-                        <el-option label="知识产权" value="知识产权" />
-                        <el-option label="公司法务" value="公司法务" />
+                        <el-option label="本科招生" value="本科招生" />
+                        <el-option label="研究生招生" value="研究生招生" />
+                        <el-option label="高职专科招生" value="高职专科招生" />
+                        <el-option label="国际项目招生" value="国际项目招生" />
+                        <el-option label="港澳台招生" value="港澳台招生" />
                         <el-option label="其他" value="其他" />
                       </el-select>
                     </el-form-item>
@@ -127,28 +123,28 @@
                   </el-col>
                 </el-row>
 
-                <el-form-item label="身份">
+                <el-form-item label="考生身份">
                   <el-select v-model="legalForm.identity" style="width:100%" placeholder="请选择">
-                    <el-option label="当事人（原告/申请人）" value="当事人（原告/申请人）" />
-                    <el-option label="当事人（被告/被申请人）" value="当事人（被告/被申请人）" />
-                    <el-option label="法律从业者" value="法律从业者" />
-                    <el-option label="学生/研究者" value="学生/研究者" />
+                    <el-option label="高中考生" value="高中考生" />
+                    <el-option label="家长" value="家长" />
+                    <el-option label="专升本考生" value="专升本考生" />
+                    <el-option label="考研考生" value="考研考生" />
                     <el-option label="其他" value="其他" />
                   </el-select>
                 </el-form-item>
 
-                <el-form-item label="案情简述">
+                <el-form-item label="背景说明">
                   <el-input
                     v-model="legalForm.caseDesc"
                     type="textarea"
                     :rows="4"
-                    placeholder="请简要描述您的法律问题或案情背景（可选，有助于获得更精准的回答）"
+                    placeholder="请简要描述您的报考背景（如成绩/位次、意向专业、地区等，可选）"
                   />
                 </el-form-item>
 
                 <el-form-item>
                   <el-button type="primary" :loading="legalLoading" @click="saveLegalProfile">
-                    保存法律档案
+                    保存招生档案
                   </el-button>
                 </el-form-item>
               </el-form>
@@ -279,7 +275,7 @@ const saveLegalProfile = async () => {
   try {
     await userApi.updateLegalProfile(JSON.stringify(legalForm))
     await userStore.fetchUserInfo()
-    ElMessage.success('法律档案已保存')
+    ElMessage.success('招生档案已保存')
   } finally {
     legalLoading.value = false
   }
