@@ -1,0 +1,22 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  /* 必须锁死，禁止任何形式的全局滚动 */
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  /* 额外保险：防止 iOS 在某些情况下依然能拖动页面 */
+  position: fixed;
+}
+
+#root,
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+  // background-color: #fff; /* 模拟手机背景 */
+  overflow: hidden;
+}

@@ -27,7 +27,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
     private final UserDetailsService userDetailsService;
-
+    /**
+     * ASYNC 派发时跳过 JWT 解析（SSE 异步回调场景，原始请求已认证）
+     */
+    @Override
+    protected boolean shouldNotFilter(jakarta.servlet.http.HttpServletRequest request) {
+        return request.getDispatcherType() == jakarta.servlet.DispatcherType.ASYNC;
+    }
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

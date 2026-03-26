@@ -593,10 +593,10 @@ const sendMessage = async (text: string) => {
   if (currentConvId.value) params.append('conversationId', String(currentConvId.value))
 
   const token = localStorage.getItem('token')
-  const evtSource = new EventSource(`/api/chat/stream?${params}`, {
-    // 注意：EventSource 不支持自定义 header，需要 token 放在 query 或 cookie 中
-    // 生产环境建议使用 cookie 或在后端放开此接口的 JWT 验证
-  } as any)
+  // const evtSource = new EventSource(`/api/chat/stream?${params}`, {
+  //   // 注意：EventSource 不支持自定义 header，需要 token 放在 query 或 cookie 中
+  //   // 生产环境建议使用 cookie 或在后端放开此接口的 JWT 验证
+  // } as any)
 
   // 在 URL 中传递 token（简化方案）
   const evtSourceWithToken = new EventSource(

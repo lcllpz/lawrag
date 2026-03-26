@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "author": "lcl <2251086272@qq.com>",
+  "scripts": {
+    "dev": "cross-env UMI_DEV_SERVER_COMPRESS=none umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup"
+  },
+  "dependencies": {
+    "antd-mobile": "^5.41.1",
+    "antd-mobile-icons": "^0.3.0",
+    "axios": "^1.8.4",
+    "marked": "^15.0.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-virtualized": "^9.22.6",
+    "umi": "^4.6.35",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-virtualized": "^9.22.3",
+    "cross-env": "^10.1.0",
+    "postcss-pxtorem": "^6.1.0",
+    "typescript": "^5.0.3",
+    "vconsole": "^3.15.1"
+  }
+}
