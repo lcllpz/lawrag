@@ -1,21 +1,27 @@
 .ChatView {
   display: flex;
   flex-direction: column;
+
   height: 100vh;
   height: 100dvh;
   overflow: hidden; /* 禁止页面整体滚动 */
 
   .mobileTopBar {
+    padding: 0 18px;
     flex: 0 0 44px; /* 固定高度，不缩放 */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #f1f5f9;
+    background: rgba(228, 228, 244, 0);
     z-index: 10;
     .mobileTopBarTitle {
-      font-weight: 700;
-      color: #334155;
-      font-size: 16px;
+      font-family: Source Han Sans;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 24px;
+      letter-spacing: 0px;
+      font-variation-settings: "opsz" auto;
+      color: #333333;
     }
   }
 
@@ -24,7 +30,7 @@
     overflow-y: auto; /* 只有这里可以滚动 */
     // 更丝滑
     -webkit-overflow-scrolling: touch;
-    padding: 10px;
+    padding-top: 12px 18px 0;
 
     .welcome {
       padding: 40px 20px;
@@ -33,19 +39,6 @@
       align-items: center;
       justify-content: center;
       gap: 14px;
-      .welcomeTitle {
-        font-size: 22px;
-        font-weight: 700;
-        color: #0c1322;
-        text-align: center;
-      }
-      .welcomeHint {
-        margin-top: 8px;
-        font-size: 11px;
-        color: #94a3b8;
-        text-align: center;
-        padding: 0 10px;
-      }
     }
 
     .messages {
@@ -163,11 +156,13 @@
 
   .ChatInputBox {
     flex: 0 0 auto; /* 高度随输入框文字增多而自适应 */
-    background: #fff;
-    margin: 20px 12px 10px;
-    padding: 8px;
-    border: 1px solid #eee;
-    border-radius: 8px;
+    border-radius: 16px;
+    opacity: 1;
+    background: rgba(228, 228, 244, 0.4);
+    box-sizing: border-box;
+    border: 1px solid #ffffff;
+    backdrop-filter: blur(28px);
+
     .inputArea {
       padding: 12px 14px calc(12px + var(--safe-area-inset-bottom));
       background: #fff;

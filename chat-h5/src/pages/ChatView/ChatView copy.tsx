@@ -14,7 +14,6 @@ import { v4 as uuidv4 } from "uuid";
 import styles from "./ChatView.less";
 import { useChatAutoScroll } from "./hooks";
 import VoiceInput from "./components/Voice";
-import { PhonebookOutline } from "antd-mobile-icons";
 
 type ChatMessageUIWithUI = ChatMessageUI & { showSources?: boolean };
 
@@ -559,12 +558,31 @@ export default function ChatView() {
   return (
     <div id="ChatView" className={styles.ChatView}>
       <div className={styles.mobileTopBar}>
-        <span className={styles.mobileTopBarTitle}>AI招⽣智能体</span>
-        <PhonebookOutline fontSize={18} />
+        <Button
+          size="small"
+          fill="none"
+          color="primary"
+          onClick={() => setSidebarDrawerVisible(true)}
+          style={{ fontSize: "16px" }}
+        >
+          菜单
+        </Button>
+        <div className={styles.mobileTopBarTitle}>对话</div>
+        <Button
+          size="small"
+          fill="none"
+          color="primary"
+          style={{ fontSize: "16px" }}
+          onClick={newConversation}
+        >
+          新对话
+        </Button>
       </div>
       <div className={styles.main} ref={containerRef} onScroll={handleScroll}>
         {messages.length === 0 ? (
           <div className={styles.welcome}>
+            <div className={styles.welcomeTitle}>智能招生问答</div>
+
             {quickTemplates.length > 0 ? (
               <div className={styles.quickQuestions}>
                 {quickTemplates.slice(0, 5).map((tpl) => (
@@ -585,6 +603,10 @@ export default function ChatView() {
                 ))}
               </div>
             ) : null}
+            <div className={styles.welcomeHint}>
+              AdmissionRAG
+              仅提供招生信息参考，最终请以学校招生网与省级考试院最新公告为准。
+            </div>
           </div>
         ) : (
           <div className={styles.messages} ref={messagesContainerRef}>
@@ -698,7 +720,7 @@ export default function ChatView() {
             {isStreaming ? (
               <div className={styles.streamingDots}>...</div>
             ) : null}
-            {/* 占位 */}
+
             <div ref={bottomRef} />
           </div>
         )}

@@ -1,4 +1,5 @@
 import { defineConfig } from "umi";
+import path from "path";
 
 export default defineConfig({
   routes: [
@@ -7,6 +8,9 @@ export default defineConfig({
     { path: "/login", component: "@/pages/login" },
   ],
   npmClient: "pnpm",
+  alias: {
+    "@": path.resolve(__dirname, "../src"),
+  },
   proxy: {
     "/api": {
       target: "http://localhost:8080",
