@@ -23,6 +23,6 @@
     "types": ["node"],
     "ignoreDeprecations": "6.0"
   },
-  "include": ["src", "config", ".umirc.ts", ".umi"],
+  "include": ["src", "config", ".umirc.ts", ".umi", "public"],
   "exclude": ["node_modules", "dist"]
 }

@@ -15,6 +15,7 @@ import styles from "./ChatView.less";
 import { useChatAutoScroll } from "./hooks";
 import VoiceInput from "./components/Voice";
 import { PhonebookOutline } from "antd-mobile-icons";
+import Login from "./components/Login";
 
 type ChatMessageUIWithUI = ChatMessageUI & { showSources?: boolean };
 
@@ -560,7 +561,7 @@ export default function ChatView() {
     <div id="ChatView" className={styles.ChatView}>
       <div className={styles.mobileTopBar}>
         <span className={styles.mobileTopBarTitle}>AI招⽣智能体</span>
-        <PhonebookOutline fontSize={18} />
+        <img src="/CSR.svg" alt="" />
       </div>
       <div className={styles.main} ref={containerRef} onScroll={handleScroll}>
         {messages.length === 0 ? (
@@ -703,43 +704,31 @@ export default function ChatView() {
           </div>
         )}
       </div>
-      <div className={styles.ChatInputBox}>
-        <TextArea
-          className={styles.inputArea}
-          value={inputText}
-          placeholder={
-            isRecording
-              ? "正在聆听，请说话..."
-              : isStreaming
-              ? "正在生成中，请稍候..."
-              : "发送消息"
-          }
-          // rows={1}
-          autoSize={{ minRows: 1, maxRows: 6 }}
-          disabled={isStreaming || isRecording}
-          onChange={(v: string) => setInputText(v)}
-          // onKeyDown={(e: any) => {
-          //   if (e.key === "Enter" && !e.shiftKey) {
-          //     e.preventDefault();
-          //     handleSend();
-          //   }
-          // }}
-        />
-        <div className={styles.sendArea}>
-          <Button
-            size="mini"
-            fill="none"
-            color={isRecording ? "danger" : "primary"}
-            disabled={isStreaming}
-            onClick={toggleVoice}
-            className={
-              isRecording ? styles.voiceButtonRecording : styles.voiceButton
+      <div className={styles.footerBox}>
+        <div className={styles.ChatInputBox}>
+          <TextArea
+            className={styles.inputArea}
+            value={inputText}
+            placeholder={
+              isRecording
+                ? "正在聆听，请说话..."
+                : isStreaming
+                ? "正在生成中，请稍候..."
+                : "有什么问题尽管问我~"
             }
-          >
-            {isRecording ? "停止录音" : "语音输入"}
-          </Button>
-
-          {/* <Button
+            rows={1}
+            autoSize={{ minRows: 1, maxRows: 6 }}
+            disabled={isStreaming || isRecording}
+            onChange={(v: string) => setInputText(v)}
+            // onKeyDown={(e: any) => {
+            //   if (e.key === "Enter" && !e.shiftKey) {
+            //     e.preventDefault();
+            //     handleSend();
+            //   }
+            // }}
+          />
+          <div className={styles.sendAction}>
+            {/* <Button
             size="small"
             fill="none"
             color="primary"
@@ -748,184 +737,50 @@ export default function ChatView() {
           >
             快捷模板
           </Button> */}
-
-          <Button
-            color="primary"
-            fill="none"
-            disabled={!inputText.trim() || isStreaming}
-            onClick={handleSend}
-            size="mini"
-          >
-            发送
-          </Button>
+            <div className={styles.left}>
+              <div className={styles.item}>
+                <img src="/phone.svg" alt="" />
+                <span>AI通话</span>
+              </div>
+              <div className={styles.itemGap}> </div>
+              <div className={styles.item}>
+                <img src="/msg.svg" alt="" />
+                <span>信息录入</span>
+              </div>
+            </div>
+            <div className={styles.fight}>
+              <img src="/speech.svg" alt="" />
+              <img src="/send.svg" alt="" />
+              {/* <Button
+              size="mini"
+              fill="none"
+              color={isRecording ? "danger" : "primary"}
+              disabled={isStreaming}
+              onClick={toggleVoice}
+              className={
+                isRecording ? styles.voiceButtonRecording : styles.voiceButton
+              }
+            >
+              {isRecording ? "停止录音" : "语音输入"}
+            </Button> */}
+              {/* <Button
+              color="primary"
+              fill="none"
+              disabled={!inputText.trim() || isStreaming}
+              onClick={handleSend}
+              size="mini"
+            >
+              发送
+            </Button> */}
+            </div>
+          </div>
+        </div>
+        <div className={styles.agreement}>
+          您同意用户协议和隐私政策 内容由AI生成
         </div>
       </div>
-      {/* <Popup
-        visible={sidebarDrawerVisible}
-        position="left"
-        onMaskClick={() => setSidebarDrawerVisible(false)}
-        onClose={() => setSidebarDrawerVisible(false)}
-        bodyClassName={styles.sidebarPopupBody}
-        destroyOnClose
-      >
-        <div className={styles.sidebarHeader}>
-          <div className={styles.sidebarTitle}>对话记录</div>
-          <Button
-            size="mini"
-            color="primary"
-            fill="solid"
-            onClick={() => {
-              setSidebarDrawerVisible(false);
-              newConversation();
-            }}
-          >
-            新对话
-          </Button>
-        </div>
 
-        <div className={styles.convList} aria-busy={convLoading}>
-          {conversations.map((conv) => (
-            <div
-              key={conv.id}
-              className={[
-                styles.convItem,
-                currentConvId === conv.id ? styles.convItemActive : "",
-              ].join(" ")}
-              onClick={() => handleSelectConversation(conv.id)}
-            >
-              <div className={styles.convMain}>
-                <div className={styles.convTitle}>{conv.title}</div>
-                <div className={styles.convMeta}>{conv.messageCount} 条</div>
-              </div>
-              <div className={styles.convActions}>
-                <button
-                  className={styles.convDeleteBtn}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (!isStreaming) {
-                      setSidebarDrawerVisible(false);
-                      deleteConversation(conv.id);
-                    }
-                  }}
-                  disabled={isStreaming}
-                >
-                  删除
-                </button>
-              </div>
-            </div>
-          ))}
-
-          {conversations.length === 0 && !convLoading ? (
-            <div className={styles.empty}>暂无对话记录</div>
-          ) : null}
-        </div>
-      </Popup> */}
-      {/* {quickPanelVisible ? (
-        <div
-          className={styles.quickPanelOverlay}
-          onClick={() => setQuickPanelVisible(false)}
-        >
-          <div
-            className={styles.quickPanel}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className={styles.quickPanelHeader}>
-              <span>快捷提问模板</span>
-              <Button
-                size="small"
-                fill="none"
-                onClick={() => setQuickPanelVisible(false)}
-              >
-                关闭
-              </Button>
-            </div>
-            <div className={styles.quickPanelList}>
-              {quickTemplates.map((tpl) => (
-                <div
-                  key={tpl.id ?? tpl.content}
-                  className={styles.quickPanelItem}
-                  onClick={() => {
-                    setQuickPanelVisible(false);
-                    if (isRecording) {
-                      Toast.show("正在录音中，请先停止");
-                      return;
-                    }
-                    sendMessage(tpl.content);
-                  }}
-                >
-                  <div className={styles.qpiLeft}>
-                    <span className={styles.qpiCategory}>{tpl.category}</span>
-                    <span className={styles.qpiTitle}>{tpl.title}</span>
-                  </div>
-                  <span className={styles.qpiArrow}>→</span>
-                </div>
-              ))}
-              {quickTemplates.length === 0 ? (
-                <div className={styles.quickPanelEmpty}>暂无模板</div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      ) : null}
-
-      {retrievalLogVisible ? (
-        <div
-          className={styles.retrievalOverlay}
-          onClick={() => setRetrievalLogVisible(false)}
-        >
-          <div
-            className={styles.retrievalModal}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className={styles.retrievalHeader}>
-              <span>RAG 检索过程可视化</span>
-              <Button
-                size="small"
-                fill="none"
-                onClick={() => setRetrievalLogVisible(false)}
-              >
-                关闭
-              </Button>
-            </div>
-            {currentRetrievalLog ? (
-              <div className={styles.retrievalBody}>
-                <div className={styles.retrievalLine}>
-                  <b>原始问题：</b>
-                  <span>{currentRetrievalLog.originalQuery || "-"}</span>
-                </div>
-                <div className={styles.retrievalLine}>
-                  <b>改写后查询：</b>
-                  <span>{currentRetrievalLog.rewrittenQuery || "-"}</span>
-                </div>
-                <div className={styles.retrievalLine}>
-                  <b>向量检索：</b>
-                  <span>{currentRetrievalLog.vectorResults ?? 0}</span>
-                </div>
-                <div className={styles.retrievalLine}>
-                  <b>BM25 检索：</b>
-                  <span>{currentRetrievalLog.bm25Results ?? 0}</span>
-                </div>
-                <div className={styles.retrievalLine}>
-                  <b>RRF 融合：</b>
-                  <span>{currentRetrievalLog.rrfCount ?? 0}</span>
-                </div>
-                <div className={styles.retrievalLine}>
-                  <b>重排序：</b>
-                  <span>{currentRetrievalLog.rerankTop ?? 5}</span>
-                </div>
-                <div className={styles.retrievalLine}>
-                  <b>状态：</b>
-                  <span>
-                    {currentRetrievalLog.isFallback ? "兜底响应" : "正常响应"}
-                  </span>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.retrievalEmpty}>暂无检索日志</div>
-            )}
-          </div>
-        </div>
-      ) : null} */}
+      <Login isShow={true}></Login>
     </div>
   );
 }

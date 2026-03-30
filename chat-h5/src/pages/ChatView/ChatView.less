@@ -23,6 +23,10 @@
       font-variation-settings: "opsz" auto;
       color: #333333;
     }
+    img {
+      height: 24px;
+      width: 24px;
+    }
   }
 
   .main {
@@ -153,19 +157,78 @@
       }
     }
   }
-
-  .ChatInputBox {
+  .footerBox {
     flex: 0 0 auto; /* 高度随输入框文字增多而自适应 */
-    border-radius: 16px;
     opacity: 1;
-    background: rgba(228, 228, 244, 0.4);
-    box-sizing: border-box;
-    border: 1px solid #ffffff;
-    backdrop-filter: blur(28px);
+    margin: 0 18px;
 
-    .inputArea {
-      padding: 12px 14px calc(12px + var(--safe-area-inset-bottom));
-      background: #fff;
+    .ChatInputBox {
+      border-radius: 14px;
+      box-sizing: border-box;
+      background: #ffffff;
+      backdrop-filter: blur(28px);
+      box-sizing: border-box;
+      padding: 12px 12px 10px;
+      border: 1px solid #c86ac8;
+      .inputArea {
+        width: inherit;
+        margin-bottom: 8px;
+      }
+      .sendAction {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .left {
+          display: flex;
+          align-items: center;
+          .itemGap {
+            width: 1px;
+            background-color: #dddddd;
+            height: 18px;
+            margin: 0 12px;
+          }
+        }
+        .right {
+          display: flex;
+          align-items: center;
+          height: 36px;
+          img {
+            width: 36px;
+            height: 36px;
+          }
+        }
+        .item {
+          display: flex;
+          align-items: center;
+          img {
+            width: 20px;
+            height: 20px;
+            margin-right: 4px;
+          }
+          span {
+            font-family: Source Han Sans;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: normal;
+            letter-spacing: 0em;
+          }
+        }
+      }
+    }
+
+    .agreement {
+      width: 100%;
+      font-family: Source Han Sans;
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 24px;
+      text-align: center;
+      letter-spacing: 0px;
+      font-variation-settings: "opsz" auto;
+      color: #999999;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      text-align: center;
     }
   }
 }

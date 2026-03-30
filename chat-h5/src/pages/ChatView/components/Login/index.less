@@ -1,0 +1,54 @@
+.loginPopup {
+  :global {
+    .adm-popup-body {
+      height: 289px;
+      border-radius: 24px 24px 0px 0px;
+      background: #ffffff;
+      background-image: url("/login-poup-bg.svg");
+      background-size: cover;
+    }
+  }
+  .loginPopupBody {
+    height: inherit;
+    box-sizing: border-box;
+    padding: 18px 18px 8px;
+    .headerBox {
+      margin-bottom: 20px;
+      .titleBox {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: Source Han Sans;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0px;
+
+        font-variation-settings: "opsz" auto;
+        color: #333333;
+        .icon {
+          font-size: 18px;
+        }
+      }
+      .describe {
+        font-family: Source Han Sans;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 24px;
+        letter-spacing: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-variation-settings: "opsz" auto;
+        color: #999999;
+
+        .describeBg {
+          width: 41.5px;
+          height: 36px;
+          background-image: url("/describe-bg.svg");
+          background-size: cover;
+        }
+      }
+    }
+  }
+}
