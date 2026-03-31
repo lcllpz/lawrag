@@ -1,10 +1,12 @@
-import { Button, Form, Input, Popup } from "antd-mobile";
+import { Button, Form, Input, Popup, Radio } from "antd-mobile";
 import React, { useEffect, useMemo } from "react";
 import styles from "./index.less";
 import CloseOutline from "antd-mobile-icons/es/CloseOutline";
 import PhonebookOutline from "antd-mobile-icons/es/PhonebookOutline";
+import Agreement from "../Agreement";
 const Login = (props: { isShow: boolean }) => {
   const [visible, setVisible] = React.useState(props.isShow);
+  const [open, SetOpen] = React.useState(false);
   useEffect(() => {
     setVisible(props.isShow);
   }, [props.isShow]);
@@ -48,12 +50,34 @@ const Login = (props: { isShow: boolean }) => {
                 <Input onChange={console.log} placeholder="请输入姓名" />
               </Form.Item>
             </Form>
-            <Button block type="submit" color="primary" size="large">
+            <Button
+              className={styles.submitButton}
+              block
+              type="submit"
+              color="primary"
+              size="large"
+              style={{
+                "--border-color": "16px",
+              }}
+            >
               提交
             </Button>
+            <div className={styles.guestLogin}>游客登录</div>
+          </div>
+          <div className={styles.agreement}>
+            <Radio />
+            <div
+              style={{
+                marginLeft: "6px",
+              }}
+              onClick={() => SetOpen(true)}
+            >
+              我已阅读并同意<span>《用户协议》</span>和<span>《隐私政策》</span>
+            </div>
           </div>
         </div>
       </Popup>
+      <Agreement visible={open} setVisible={SetOpen}></Agreement>
     </div>
   );
 };

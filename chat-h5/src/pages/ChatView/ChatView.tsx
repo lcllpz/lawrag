@@ -13,9 +13,9 @@ import type {
 import { v4 as uuidv4 } from "uuid";
 import styles from "./ChatView.less";
 import { useChatAutoScroll } from "./hooks";
-import VoiceInput from "./components/Voice";
+import VoiceInput from "../components/Voice";
 import { PhonebookOutline } from "antd-mobile-icons";
-import Login from "./components/Login";
+import Login from "../components/Login";
 
 type ChatMessageUIWithUI = ChatMessageUI & { showSources?: boolean };
 
@@ -110,7 +110,7 @@ export default function ChatView() {
     }
   };
 
-  const loadHistory = async (convId: number) => {
+  const loadHistory = async (convId: number = 36) => {
     setConvLoading(true);
     try {
       const res = await chatApi.getHistory(convId, { size: 100 });
@@ -149,9 +149,10 @@ export default function ChatView() {
   };
 
   useEffect(() => {
-    loadConversations();
-    loadTemplates();
+    // loadConversations();
+    // loadTemplates();
     loadFavoriteStatus();
+    loadHistory();
     return () => {};
   }, []);
 
@@ -561,12 +562,18 @@ export default function ChatView() {
     <div id="ChatView" className={styles.ChatView}>
       <div className={styles.mobileTopBar}>
         <span className={styles.mobileTopBarTitle}>AI招⽣智能体</span>
-        <img src="/CSR.svg" alt="" />
+        <div className={styles.right}>
+          <div className={styles.item}>
+            <div>AI通话</div>
+            <img src="/phone24.svg" alt="" />
+          </div>
+          <img src="/CSR.svg" alt="" />
+        </div>
       </div>
       <div className={styles.main} ref={containerRef} onScroll={handleScroll}>
         {messages.length === 0 ? (
           <div className={styles.welcome}>
-            {quickTemplates.length > 0 ? (
+            {/* {quickTemplates.length > 0 ? (
               <div className={styles.quickQuestions}>
                 {quickTemplates.slice(0, 5).map((tpl) => (
                   <div
@@ -585,7 +592,7 @@ export default function ChatView() {
                   </div>
                 ))}
               </div>
-            ) : null}
+            ) : null} */}
           </div>
         ) : (
           <div className={styles.messages} ref={messagesContainerRef}>
@@ -597,10 +604,10 @@ export default function ChatView() {
                   </div>
                 );
               }
+              console.log(msg.content);
 
               return (
                 <div key={msg.tempId} className={styles.aiMsg}>
-                  <div className={styles.aiAvatar}>A</div>
                   <div className={styles.aiBody}>
                     <div
                       className={styles.aiBubble}
@@ -608,89 +615,6 @@ export default function ChatView() {
                         __html: renderMarkdown(msg.content),
                       }}
                     />
-
-                    {msg.sources &&
-                    msg.sources.length > 0 &&
-                    !msg.isStreaming ? (
-                      <div className={styles.sourcesPanel}>
-                        <div className={styles.sourcesHeader}>
-                          参考文献（{msg.sources.length}）
-                          <Button
-                            size="small"
-                            fill="none"
-                            color="primary"
-                            className={styles.sourcesToggle}
-                            onClick={() =>
-                              setMessages((prev) =>
-                                prev.map((m) =>
-                                  m.tempId === msg.tempId
-                                    ? { ...m, showSources: !m.showSources }
-                                    : m
-                                )
-                              )
-                            }
-                          >
-                            {msg.showSources ? "收起" : "展开"}
-                          </Button>
-                        </div>
-                        {msg.showSources ? (
-                          <div className={styles.sourcesList}>
-                            {msg.sources.slice(0, 5).map((src, i) => (
-                              <div key={i} className={styles.sourceItem}>
-                                <div className={styles.sourceIndex}>
-                                  [{src.index}]
-                                </div>
-                                <div className={styles.sourceContent}>
-                                  {src.content}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ) : null}
-                      </div>
-                    ) : null}
-
-                    {!msg.isStreaming && (
-                      <div className={styles.messageActions}>
-                        <button
-                          className={styles.actionBtn}
-                          onClick={() => submitFeedback(msg, 1)}
-                        >
-                          有用
-                        </button>
-                        <button
-                          className={styles.actionBtn}
-                          onClick={() => submitFeedback(msg, -1)}
-                        >
-                          没用
-                        </button>
-                        <button
-                          className={styles.actionBtn}
-                          onClick={() => showRetrievalLog(msg)}
-                        >
-                          检索过程
-                        </button>
-                        <button
-                          className={styles.actionBtn}
-                          onClick={() => copyContent(msg.content)}
-                        >
-                          复制
-                        </button>
-                        <button
-                          className={styles.actionBtn}
-                          style={{
-                            color: favoritedMsgIds.has(msg.id as number)
-                              ? "#b8943f"
-                              : undefined,
-                          }}
-                          onClick={() => toggleFavorite(msg)}
-                        >
-                          {favoritedMsgIds.has(msg.id as number)
-                            ? "取消收藏"
-                            : "收藏"}
-                        </button>
-                      </div>
-                    )}
                   </div>
                 </div>
               );
@@ -780,7 +704,7 @@ export default function ChatView() {
         </div>
       </div>
 
-      <Login isShow={true}></Login>
+      <Login isShow={false}></Login>
     </div>
   );
 }
