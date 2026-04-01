@@ -16,6 +16,7 @@ import { useChatAutoScroll } from "./hooks";
 import VoiceInput from "../components/Voice";
 import { PhonebookOutline } from "antd-mobile-icons";
 import Login from "../components/Login";
+import UserFeedback from "../components/UserFeedback";
 
 type ChatMessageUIWithUI = ChatMessageUI & { showSources?: boolean };
 
@@ -705,6 +706,7 @@ export default function ChatView() {
       </div>
 
       <Login isShow={false}></Login>
+      <UserFeedback isShow={false}></UserFeedback>
     </div>
   );
 }

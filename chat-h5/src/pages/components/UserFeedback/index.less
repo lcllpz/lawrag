@@ -1,0 +1,174 @@
+.UserFeedback {
+  :global {
+    .adm-popup-body {
+      height: 382px;
+      background-image: url("/login-poup-bg.svg");
+      background-size: cover;
+      border-radius: 28px 28px 0px 0px;
+      background-repeat: no-repeat;
+      background-position: center 20%;
+    }
+  }
+  .FeedbackPopupBody {
+    height: inherit;
+    box-sizing: border-box;
+    padding: 18px 18px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .headerBox {
+      margin-bottom: 10px;
+      width: 100%;
+      .titleBox {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: Source Han Sans;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0px;
+
+        font-variation-settings: "opsz" auto;
+        color: #333333;
+        .icon {
+          font-size: 18px;
+        }
+      }
+      .describe {
+        font-family: Source Han Sans;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 24px;
+        letter-spacing: 0px;
+        display: flex;
+        align-items: center;
+        font-variation-settings: "opsz" auto;
+        color: #999999;
+        position: relative;
+
+        .describeBg {
+          position: absolute;
+          margin-left: 58px;
+          width: 47px;
+          height: 44px;
+          background-image: url("/FeedbackLogo.svg");
+          background-size: cover;
+          top: -11px;
+          right: 51px;
+        }
+      }
+    }
+    .contentBox {
+      width: 100%;
+
+      :global {
+        .adm-form {
+          .adm-list {
+            border: none !important;
+            padding: 0 !important;
+            .adm-list-body {
+              border: none !important;
+              padding: 0 !important;
+              border-radius: 8px;
+              .adm-list-body-inner {
+                margin: 0 !important;
+              }
+            }
+          }
+          .adm-list-item {
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border-radius: 8px;
+            opacity: 1;
+            background: #ffffff;
+            border: 1px solid #eeeff0;
+            margin-bottom: 12px;
+            .adm-list-item-content {
+              border: none;
+              padding: 0;
+            }
+          }
+          .adm-list-item-content-prefix {
+            padding: 0;
+            width: auto;
+            margin-right: 8px;
+            .adm-form-item-label {
+              display: flex;
+              align-items: center;
+            }
+          }
+          .adm-list-item-content-main {
+            padding: 0;
+          }
+          input {
+            height: 23px;
+            opacity: 1;
+
+            font-size: 14px;
+
+            font-weight: normal;
+            line-height: normal;
+            letter-spacing: 0em;
+
+            color: #9898ab;
+          }
+          textarea {
+            font-size: 14px;
+          }
+        }
+      }
+      .submitButton {
+        margin-top: 6px;
+        margin-bottom: 16px;
+        --border-radius: 220px;
+        opacity: 1;
+
+        /* 组 19105 */
+        background: linear-gradient(
+          0deg,
+          #801c80 -47%,
+          #8b50ca -5%,
+          #b666b6 100%
+        );
+        border: none;
+      }
+      .pbone {
+        font-size: 16px;
+        font-weight: normal;
+        line-height: normal;
+        text-align: center;
+        letter-spacing: 0em;
+        color: #666666;
+      }
+    }
+    .agreement {
+      font-family: Source Han Sans;
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 24px;
+      letter-spacing: 0px;
+      margin-top: 28px;
+      /* 我已阅读并同意 */
+      color: #999999;
+      display: flex;
+      align-items: center;
+      :global {
+        .adm-radio {
+          --icon-size: 15px !important;
+        }
+      }
+      span {
+        background-image: linear-gradient(
+          0deg,
+          #801e80 -47%,
+          #8b50ca -5%,
+          #b666b6 100%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+    }
+  }
+}
