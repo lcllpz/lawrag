@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { Button, Popup, TextArea, Toast } from "antd-mobile";
+import { Button, Popover, Popup, TextArea, Toast } from "antd-mobile";
 import { marked } from "marked";
 import { chatApi } from "@/services/chat";
 import { favoriteApi } from "@/services/favorite";
@@ -14,9 +14,18 @@ import { v4 as uuidv4 } from "uuid";
 import styles from "./ChatView.less";
 import { useChatAutoScroll } from "./hooks";
 import VoiceInput from "../components/Voice";
-import { PhonebookOutline } from "antd-mobile-icons";
+import {
+  AntOutline,
+  HandPayCircleOutline,
+  PhonebookOutline,
+  ScanningOutline,
+  TransportQRcodeOutline,
+} from "antd-mobile-icons";
 import Login from "../components/Login";
 import UserFeedback from "../components/UserFeedback";
+import axios from "axios";
+import InformationEntry from "../components/InformationEntry";
+import { text } from "node:stream/consumers";
 
 type ChatMessageUIWithUI = ChatMessageUI & { showSources?: boolean };
 
@@ -45,7 +54,7 @@ export default function ChatView() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [convLoading, setConvLoading] = useState(false);
   const [currentConvId, setCurrentConvId] = useState<number | null>(null);
-
+  const [PopoverVisible, setCurrentConvTitle] = useState<boolean>(false);
   const [messages, setMessages] = useState<ChatMessageUIWithUI[]>([]);
 
   const { containerRef, bottomRef, handleScroll, scrollToBottomAfterSend } =
@@ -559,12 +568,93 @@ export default function ChatView() {
     vv.addEventListener("resize", onVisualViewportResize);
     return () => vv.removeEventListener("resize", onVisualViewportResize);
   }, []);
+
+  const goPhone = async () => {
+    const res = await axios.post("/api/voice-chat/session?userId=userId");
+    const { sessionId } = res.data.data;
+    const wsUrl = `ws://192.168.36.107:8080/ws/voice-chat/${sessionId}`;
+    // 2. 创建 WebSocket 连接
+    let ws = new WebSocket(wsUrl);
+    // 3. 监听连接成功
+    ws.onopen = () => {
+      console.log("WebSocket 连接成功");
+      // 连接成功后可以发送初始消息
+      // ws.send(JSON.stringify({ action: "start_asr" }));
+      ws.send(
+        JSON.stringify({ action: "start_tts", text: "hello from React" })
+      );
+    };
+
+    // 4. 监听收到消息
+    ws.onmessage = (event) => {
+      console.log("收到消息：", event.data);
+      // 如果是 JSON 格式，解析一下
+      // try {
+      //   const message = JSON.parse(event.data);
+      //   handleMessage(message);
+      // } catch (e) {
+      //   // 如果是二进制数据（比如音频流）
+      //   handleBinaryData(event.data);
+      // }
+    };
+
+    // 5. 监听连接错误
+    ws.onerror = (error) => {
+      console.error("❌ 连接错误：", error);
+      console.log("WebSocket状态：", ws.readyState); // 0=连接中，1=已连接，2=关闭中，3=已关闭
+    };
+
+    // 6. 监听连接关闭
+    ws.onclose = (event) => {
+      console.log("WebSocket 连接关闭：", event.code, event.reason);
+      console.log("🔌 连接关闭");
+      console.log("关闭码：", event.code);
+      console.log("关闭原因：", event.reason);
+      console.log("是否被服务器主动关闭：", event.wasClean);
+      // 可以在这里做自动重连
+      // setTimeout(() => {
+      //   console.log("尝试重新连接...");
+      //   ws = new WebSocket(wsUrl);
+      // }, 3000);
+    };
+
+    // 7. 发送消息的函数
+    function sendMessage(data) {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify(data));
+      } else {
+        console.error("WebSocket 未连接");
+      }
+    }
+    // 8. 关闭连接的函数
+    function closeConnection() {
+      if (ws) {
+        ws.close();
+      }
+    }
+    // 处理业务消息的函数（根据你的需求修改）
+    function handleMessage(message) {
+      console.log("处理业务消息：", message);
+    }
+
+    // 处理二进制数据（比如音频流）
+    function handleBinaryData(data) {
+      console.log("收到二进制数据：", data);
+    }
+  };
+
   return (
-    <div id="ChatView" className={styles.ChatView}>
+    <div
+      id="ChatView"
+      className={styles.ChatView}
+      onClick={() => {
+        setCurrentConvTitle(false);
+      }}
+    >
       <div className={styles.mobileTopBar}>
         <span className={styles.mobileTopBarTitle}>AI招⽣智能体</span>
         <div className={styles.right}>
-          <div className={styles.item}>
+          <div className={styles.item} onClick={goPhone}>
             <div>AI通话</div>
             <img src="/phone24.svg" alt="" />
           </div>
@@ -630,6 +720,57 @@ export default function ChatView() {
         )}
       </div>
       <div className={styles.footerBox}>
+        <Popover
+          className={styles.footerBoxPopover}
+          visible={PopoverVisible}
+          content={
+            <>
+              <div className={styles.title}>你可以这样问</div>
+              <div className={styles.dashedLine}></div>
+              <div
+                className={styles.item}
+                onClick={() => {
+                  setCurrentConvTitle(false);
+                }}
+              >
+                <img src="/footerBoxPopoverIcon.svg" alt="" />
+                <span>相关问题相关问题相关问题</span>
+              </div>
+              <div className={styles.item}>
+                <img src="/footerBoxPopoverIcon.svg" alt="" />
+                <span>相关问题相关问题相关问题</span>
+              </div>
+              <div className={styles.item}>
+                <img src="/footerBoxPopoverIcon.svg" alt="" />
+                <span>相关问题相关问题相关问题</span>
+              </div>
+            </>
+          }
+          placement="top-start"
+          trigger="click"
+          // onVisibleChange={(visible) => {
+          //   setCurrentConvTitle(visible);
+          // }}
+        >
+          <div
+            className={[
+              styles.APICommand,
+              PopoverVisible ? styles.APICommandClick : "",
+            ].join(" ")}
+            onClick={(e) => {
+              setCurrentConvTitle(!PopoverVisible);
+              e.stopPropagation();
+            }}
+          >
+            {PopoverVisible ? (
+              <img src="/APICommandIcon2.svg" alt="" />
+            ) : (
+              <img src="/APICommandIcon.svg" alt="" />
+            )}
+            常用指令
+          </div>
+        </Popover>
+
         <div className={styles.ChatInputBox}>
           <TextArea
             className={styles.inputArea}
@@ -707,6 +848,7 @@ export default function ChatView() {
 
       <Login isShow={false}></Login>
       <UserFeedback isShow={false}></UserFeedback>
+      {/* <InformationEntry isShow={true}></InformationEntry> */}
     </div>
   );
 }

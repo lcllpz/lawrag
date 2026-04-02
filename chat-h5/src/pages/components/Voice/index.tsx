@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { Button } from "antd-mobile";
-import "./utils/speechrecognizer";
-import { signCallback, config } from "./utils/asrauthentication";
+import "../utils/speechrecognizer";
+import { signCallback, config } from "../utils/asrauthentication";
 
 const params = {
   signCallback: signCallback, // 鉴权函数，若直接使用默认鉴权函数。可不传此参数

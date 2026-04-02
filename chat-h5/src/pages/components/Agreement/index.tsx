@@ -24,7 +24,7 @@ const Index = (props: {
     markdownContent.innerHTML = content;
   };
   return (
-    <div>
+    <>
       <Popup
         position="left"
         visible={visible}
@@ -78,7 +78,7 @@ const Index = (props: {
           </div>
         </div>
       </Popup>
-    </div>
+    </>
   );
 };
 
